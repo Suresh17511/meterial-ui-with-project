@@ -10,12 +10,20 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import {useHistory} from 'react-router';
-const useStyles = makeStyles({
-  field: {
-    marginTop: 20,
-    marginBottom: 20,
-    display: 'block',
-  },
+const useStyles = makeStyles((theme) => {
+  return {
+    field: {
+      marginTop: 20,
+      marginBottom: 20,
+      display: 'block',
+    },
+    form__container: {
+      width: '60%',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+      },
+    },
+  };
 });
 export default function Create() {
   const [title, setTitle] = useState('');
@@ -43,13 +51,8 @@ export default function Create() {
     }
   };
   return (
-    <Container>
-      <Typography
-        variant="h6"
-        color="textSecondary"
-        component="h2"
-        gutterBottom
-      >
+    <Container className={classes.form__container}>
+      <Typography variant="h6" color="secondary" component="h2" gutterBottom>
         Create New Note
       </Typography>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
@@ -82,7 +85,7 @@ export default function Create() {
           error={detailsError}
         />
         <FormControl className={classes.field}>
-          <FormLabel>Note Category</FormLabel>
+          <FormLabel color="secondary">Note Category</FormLabel>
           <RadioGroup
             value={category}
             onChange={(e) => setCategory(e.target.value)}
